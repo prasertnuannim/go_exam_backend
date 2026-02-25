@@ -2,7 +2,7 @@ package http
 
 import (
 	"log"
-	
+
 	"github.com/gofiber/fiber/v2"
 	"sert_exam_backend/internal/usecase/exam"
 )
@@ -26,10 +26,6 @@ func (h *ExamHandler) Create(c *fiber.Ctx) error {
 		return c.Status(400).JSON(fiber.Map{"error": "invalid payload"})
 	}
 
-	if err := h.service.Create(c.Context(), req); err != nil {
-		return c.Status(500).JSON(fiber.Map{"error": err.Error()})
-	}
-	// 🔥 PRINT DATA RECEIVED
 	log.Println("📥 New Exam Received")
 	log.Printf("DeviceID: %s\n", req.DeviceID)
 	log.Printf("ExamTypeID: %s\n", req.ExamTypeID)
