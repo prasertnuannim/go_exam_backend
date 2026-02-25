@@ -12,12 +12,13 @@ import (
 )
 
 func main() {
-
 	cfg := config.Load()
-
 	db, err := database.NewPostgres(cfg)
 	if err != nil {
 		log.Fatal("❌ Cannot connect DB:", err)
+	}
+	if err := db.AutoMigrate(&persistence.ExamModel{}); err != nil {
+		log.Fatal("❌ Cannot migrate DB:", err)
 	}
 
 	app := fiber.New()
